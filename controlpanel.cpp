@@ -84,7 +84,7 @@ void ControlPanel::setSettings(Settings *settings){
 void ControlPanel::collapse()
 {
     QPoint btnPosition = m_bt_settings->mapToParent(m_bt_settings->rect().topRight());
-    animation->setStartValue(158);
+    animation->setStartValue(170);
     animation->setEndValue(m_bt_settings->height() + 15);
     animation->start();
     m_bt_settings->setText("&Settings");
@@ -94,7 +94,7 @@ void ControlPanel::collapse()
 
 void ControlPanel::expand(){
     animation->setStartValue(m_bt_settings->height() + 15);
-    animation->setEndValue(158);
+    animation->setEndValue(170);
     animation->start();
     m_bt_settings->setText("^");
     m_bt_settings->setShortcut(Qt::KeyboardModifier::AltModifier + Qt::Key_S);
