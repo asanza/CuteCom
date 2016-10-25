@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>640</width>
+    <width>834</width>
     <height>170</height>
    </rect>
   </property>
@@ -45,8 +45,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>701</width>
-        <height>105</height>
+        <width>831</width>
+        <height>111</height>
        </rect>
       </property>
       <layout class="QGridLayout" name="gridLayout">
@@ -180,7 +180,7 @@
            <widget class="QLineEdit" name="m_logfile_edit">
             <property name="minimumSize">
              <size>
-              <width>80</width>
+              <width>250</width>
               <height>0</height>
              </size>
             </property>
