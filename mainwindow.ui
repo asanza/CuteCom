@@ -29,12 +29,6 @@
     </item>
     <item>
      <widget class="QSplitter" name="m_mainSplitter">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
       <property name="frameShape">
        <enum>QFrame::NoFrame</enum>
       </property>
@@ -53,6 +47,12 @@
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
+       </property>
+       <property name="baseSize">
+        <size>
+         <width>0</width>
+         <height>0</height>
+        </size>
        </property>
        <property name="frameShape">
         <enum>QFrame::NoFrame</enum>
@@ -85,6 +85,12 @@
         <item>
          <widget class="QListWidget" name="m_command_history">
           <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="baseSize">
            <size>
             <width>0</width>
             <height>0</height>
@@ -314,7 +320,7 @@
             </property>
             <property name="sizeHint" stdset="0">
              <size>
-              <width>140</width>
+              <width>0</width>
               <height>20</height>
              </size>
             </property>
