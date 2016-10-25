@@ -53,7 +53,12 @@ ControlPanel::ControlPanel(QWidget *parent, Settings *settings)
     connect(m_bt_open, &QPushButton::clicked, this, &ControlPanel::toggleDevice);
     connect(m_combo_Baud, static_cast<void (QComboBox::*)(int)>(&QComboBox::activated), this,
             &ControlPanel::customBaudRate);
+    connect(m_bt_refresh, &QPushButton::clicked, this, &ControlPanel::refreshDeviceCombo);
     collapse();
+}
+
+void ControlPanel::refreshDeviceCombo(){
+    fillDeviceCombo(m_combo_device->itemText(0));
 }
 
 void ControlPanel::setSettings(Settings *settings){
@@ -140,12 +145,16 @@ void ControlPanel::toggleDevice(bool open)
         if (m_menuVisible)
             toggleMenu();
         m_bt_settings->setEnabled(false);
+        m_bt_refresh->setEnabled(false);
         m_bt_open->setText(tr("Cl&ose"));
+        m_combo_device->setEnabled(false);
         emit openDeviceClicked();
     } else {
         m_bt_settings->setEnabled(true);
         emit closeDeviceClicked();
         m_bt_open->setText(tr("&Open"));
+        m_bt_refresh->setEnabled(true);
+        m_combo_device->setEnabled(true);
     }
 }
 

@@ -74,6 +74,7 @@ private:
     void fillDataBitCombo();
     void fillStopBitCombo();
     void fillOpenModeCombo();
+    void refreshDeviceCombo();
 
     // slots
     void toggleMenu();

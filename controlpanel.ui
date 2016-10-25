@@ -313,6 +313,13 @@
          </widget>
         </item>
         <item>
+         <widget class="QPushButton" name="m_bt_refresh">
+          <property name="text">
+           <string>&amp;Refresh</string>
+          </property>
+         </widget>
+        </item>
+        <item>
          <spacer name="horizontalSpacer">
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
