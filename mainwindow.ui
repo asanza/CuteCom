@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>640</width>
+    <width>973</width>
     <height>480</height>
    </rect>
   </property>
@@ -22,8 +22,11 @@
      <enum>QLayout::SetDefaultConstraint</enum>
     </property>
     <property name="topMargin">
-     <number>9</number>
+     <number>0</number>
     </property>
+    <item>
+     <widget class="ControlPanel" name="controlPanel" native="true"/>
+    </item>
     <item>
      <widget class="QSplitter" name="m_mainSplitter">
       <property name="sizePolicy">
@@ -68,7 +71,7 @@
          <enum>QLayout::SetMinimumSize</enum>
         </property>
         <property name="leftMargin">
-         <number>10</number>
+         <number>0</number>
         </property>
         <property name="topMargin">
          <number>10</number>
@@ -226,7 +229,7 @@
          <number>10</number>
         </property>
         <property name="rightMargin">
-         <number>10</number>
+         <number>0</number>
         </property>
         <property name="bottomMargin">
          <number>10</number>
@@ -330,8 +333,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>640</width>
-     <height>30</height>
+     <width>973</width>
+     <height>29</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuSessions">
@@ -394,6 +397,12 @@
    <class>DataDisplay</class>
    <extends>QWidget</extends>
    <header>datadisplay.h</header>
+  </customwidget>
+  <customwidget>
+   <class>ControlPanel</class>
+   <extends>QWidget</extends>
+   <header location="global">controlpanel.h</header>
+   <container>1</container>
   </customwidget>
  </customwidgets>
  <resources>

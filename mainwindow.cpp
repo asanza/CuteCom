@@ -127,28 +127,7 @@ MainWindow::MainWindow(QWidget *parent, const QString &session)
             [=](int value) { m_settings->settingChanged(Settings::CharacterDelay, value); });
 
     // add the settings slide out panel
-    controlPanel = new ControlPanel(this->centralWidget(), m_settings);
-
-    QMargins mainMargins = m_verticalLayout->contentsMargins();
-    controlPanel->setLeftMargin(mainMargins.left());
-
-    // show the controlPanel
-    controlPanel->show();
-    // slide this panel to the top
-    controlPanel->collapse();
-
-    // make sure there is enough room for the controls
-    int minWidth = controlPanel->frameGeometry().width();
-    if (minWidth > m_mainSplitter->minimumWidth())
-        m_mainSplitter->setMinimumWidth(minWidth);
-
-    // make sure there is enough space for the collapsed panel
-    // above all other widgets
-    int hHeight = controlPanel->hiddenHeight();
-    qDebug() << Q_FUNC_INFO << "calculated height: " << hHeight;
-    mainMargins.setTop(hHeight);
-    m_verticalLayout->setContentsMargins(mainMargins);
-    m_mainSplitter->installEventFilter(this);
+    controlPanel->setSettings(m_settings);
 
     // setup status bar with initial infromation
     m_device_statusbar = new StatusBar(this);
@@ -203,7 +182,7 @@ bool MainWindow::eventFilter(QObject *obj, QEvent *event)
         if (event->type() == QEvent::Resize) {
             if (((QResizeEvent *)event)->oldSize().width() != m_mainSplitter->width()) {
                 // qDebug() << ((QResizeEvent*) event)->oldSize().width() << " : " << m_mainSplitter->width();
-                controlPanel->resize(m_verticalLayout->contentsRect().width(), controlPanel->height());
+                //controlPanel->resize(m_verticalLayout->contentsRect().width(), controlPanel->height());
             }
         }
         return false;
@@ -264,8 +243,8 @@ bool MainWindow::eventFilter(QObject *obj, QEvent *event)
             QMessageBox::warning(this, tr("Can't change logfile location"),
                                  tr("Device needs to be closed to change the logfile"));
         } else {
-            controlPanel->slideOut();
-            controlPanel->m_logfile_edit->setFocus();
+            //controlPanel->slideOut();
+            //controlPanel->m_logfile_edit->setFocus();
         }
 
         return false;

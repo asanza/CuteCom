@@ -37,6 +37,26 @@ ControlPanel::ControlPanel(QWidget *parent, Settings *settings)
 {
     this->setupUi(this);
 
+    animation = new QPropertyAnimation(this, "maximumHeight");
+    if(settings){
+        setSettings(settings);
+    }
+
+    connect(m_bt_logfileDialog, &QToolButton::clicked, this, &ControlPanel::chooseLogFile);
+
+    setAutoFillBackground(true);
+    //    setWindowOpacity(0.1);
+    m_bt_open->setCheckable(true);
+
+    // Connect button signal to slot
+    connect(m_bt_settings, &QPushButton::clicked, this, &ControlPanel::toggleMenu);
+    connect(m_bt_open, &QPushButton::clicked, this, &ControlPanel::toggleDevice);
+    connect(m_combo_Baud, static_cast<void (QComboBox::*)(int)>(&QComboBox::activated), this,
+            &ControlPanel::customBaudRate);
+    collapse();
+}
+
+void ControlPanel::setSettings(Settings *settings){
     m_baudValidator = new QIntValidator(0, 999000, this);
     m_combo_Baud->setInsertPolicy(QComboBox::NoInsert);
     const Settings::Session session = settings->getCurrentSession();
@@ -54,20 +74,7 @@ ControlPanel::ControlPanel(QWidget *parent, Settings *settings)
     connect(m_check_timestamp, &QCheckBox::toggled,
             [=](bool checked) { emit settingChanged(Settings::ShowTimestamp, checked); });
     connect(this, &ControlPanel::settingChanged, settings, &Settings::settingChanged);
-
     applySessionSettings(session);
-
-    connect(m_bt_logfileDialog, &QToolButton::clicked, this, &ControlPanel::chooseLogFile);
-
-    setAutoFillBackground(true);
-    //    setWindowOpacity(0.1);
-    m_bt_open->setCheckable(true);
-
-    // Connect button signal to slot
-    connect(m_bt_settings, &QPushButton::clicked, this, &ControlPanel::toggleMenu);
-    connect(m_bt_open, &QPushButton::clicked, this, &ControlPanel::toggleDevice);
-    connect(m_combo_Baud, static_cast<void (QComboBox::*)(int)>(&QComboBox::activated), this,
-            &ControlPanel::customBaudRate);
 }
 
 /**
@@ -76,12 +83,24 @@ ControlPanel::ControlPanel(QWidget *parent, Settings *settings)
  */
 void ControlPanel::collapse()
 {
-    QPoint btnPosition = m_bt_settings->mapToParent(m_bt_settings->rect().topLeft());
-
-    m_y = -(btnPosition.y() + 5);
-    //    qDebug() << Q_FUNC_INFO << m_y << " : " << m_x;
-    move(m_x, m_y);
+    QPoint btnPosition = m_bt_settings->mapToParent(m_bt_settings->rect().topRight());
+    animation->setStartValue(158);
+    animation->setEndValue(m_bt_settings->height() + 15);
+    animation->start();
+    m_bt_settings->setText("&Settings");
     m_menuVisible = false;
+    //this->setMaximumHeight(60);
+}
+
+void ControlPanel::expand(){
+    animation->setStartValue(m_bt_settings->height() + 15);
+    animation->setEndValue(158);
+    animation->start();
+    m_bt_settings->setText("^");
+    m_bt_settings->setShortcut(Qt::KeyboardModifier::AltModifier + Qt::Key_S);
+    m_menuVisible = true;
+    m_combo_Baud->setFocus();
+    //this->setMaximumHeight(158);
 }
 
 /**
@@ -105,22 +124,13 @@ void ControlPanel::printPosition()
 
 void ControlPanel::toggleMenu()
 {
-    // Create animation
-    QPropertyAnimation *animation = new QPropertyAnimation(this, "pos");
-    // bool m_menuVisible = (y() < -3);
-    QPoint endPos = m_menuVisible ? QPoint(m_x, m_y) : QPoint(m_x, -3);
-    //    qDebug() << m_menuVisible << endPos;
-    animation->setStartValue(pos());
-    animation->setEndValue(endPos);
-    animation->start();
+//    // bool m_menuVisible = (y() < -3);
+//    QPoint endPos = m_menuVisible ? QPoint(m_x, m_y) : QPoint(m_x, -3);
+//    //    qDebug() << m_menuVisible << endPos;
     if (m_menuVisible) {
-        m_bt_settings->setText("&Settings");
-        m_menuVisible = false;
+        collapse();
     } else {
-        m_bt_settings->setText("^");
-        m_bt_settings->setShortcut(Qt::KeyboardModifier::AltModifier + Qt::Key_S);
-        m_menuVisible = true;
-        m_combo_Baud->setFocus();
+        expand();
     }
 }
 

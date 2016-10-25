@@ -83,7 +83,6 @@ private:
     void switchSession(const QString &session);
     void updateCommandHistory();
 
-    ControlPanel *controlPanel;
     SessionManager *m_sessionManager;
     QSerialPort *m_device;
     DeviceState m_deviceState;

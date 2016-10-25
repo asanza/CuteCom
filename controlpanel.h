@@ -38,7 +38,7 @@ signals:
     void settingChanged(Settings::Options option, QVariant setting);
 
 public:
-    explicit ControlPanel(QWidget *parent = 0, Settings *settings = 0);
+    explicit ControlPanel(QWidget *parent = 0, Settings* = 0);
     ~ControlPanel();
     /**
      * Returns the space in the y-achsis needed
@@ -49,6 +49,7 @@ public:
     int hiddenHeight() { return height() + m_y; }
     void printPosition();
     void collapse();
+    void expand();
     void slideOut();
     /**
      * @brief setLeftMargin
@@ -58,6 +59,7 @@ public:
 
     void fillDeviceCombo(const QString &deviceName);
     void applySessionSettings(Settings::Session settings);
+    void setSettings(Settings *settings);
 
     void closeDevice()
     {
@@ -86,6 +88,7 @@ private:
     bool m_menuVisible;
     QIntValidator *m_baudValidator;
     QLineEdit *m_baud_edit;
+    QPropertyAnimation *animation;
 };
 
 #endif // CONTROLPANEL_H
